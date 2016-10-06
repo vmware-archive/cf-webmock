@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf-experimental/cf-webmock/http"
+	"github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 	"gopkg.in/yaml.v2"
 )
 

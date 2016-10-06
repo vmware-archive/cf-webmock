@@ -3,7 +3,7 @@ package mockbosh
 import (
 	"net/http/httptest"
 
-	"github.com/pivotal-cf-experimental/cf-webmock/http"
+	"github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 )
 
 func New() *mockhttp.Server {

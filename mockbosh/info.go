@@ -1,6 +1,6 @@
 package mockbosh
 
-import "github.com/pivotal-cf-experimental/cf-webmock/http"
+import "github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 
 type infoMock struct {
 	*mockhttp.MockHttp

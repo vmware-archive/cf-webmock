@@ -4,7 +4,7 @@ import (
 	"gopkg.in/yaml.v2"
 
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf-experimental/cf-webmock/http"
+	"github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 )
 
 type deployMock struct {

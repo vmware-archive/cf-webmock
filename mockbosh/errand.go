@@ -3,7 +3,7 @@ package mockbosh
 import (
 	"fmt"
 
-	"github.com/pivotal-cf-experimental/cf-webmock/http"
+	"github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 )
 
 type errandMock struct {

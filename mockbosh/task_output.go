@@ -7,7 +7,7 @@ import (
 	"reflect"
 
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf-experimental/cf-webmock/http"
+	"github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 )
 
 type taskOutputMock struct {
