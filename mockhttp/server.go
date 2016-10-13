@@ -28,11 +28,12 @@ type Server struct {
 
 func StartServer(name string, startTestServer func(http.Handler) *httptest.Server) *Server {
 	d := &Server{Mutex: new(sync.Mutex)}
-	d.Server = httptest.NewServer(d)
+	d.Server = startTestServer(d)
 
 	d.logger = log.New(GinkgoWriter, "["+name+"] ", log.LstdFlags)
 	return d
 }
+
 func (d *Server) ExpectedAuthorizationHeader(header string) {
 	d.expectedAuthorizationHeader = header
 }
