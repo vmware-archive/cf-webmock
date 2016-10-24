@@ -23,6 +23,8 @@ type MockHttp struct {
 	responseRedirectToUrl string
 	responseStatus        int
 	responseBody          string
+
+	responseCallback func(rawbody []byte)
 }
 
 func (i *MockHttp) Fails(message string) *MockHttp {
@@ -92,10 +94,14 @@ func (i *MockHttp) Verify(req *http.Request, d *Server) {
 	if i.expectedAuthorizationHeader != "" {
 		Expect(req.Header.Get("Authorization")).To(Equal(i.expectedAuthorizationHeader))
 	}
+	rawBody, err := ioutil.ReadAll(req.Body)
+	Expect(err).NotTo(HaveOccurred())
+
 	if i.expectedBody != "" {
-		rawBody, err := ioutil.ReadAll(req.Body)
-		Expect(err).NotTo(HaveOccurred())
 		Expect(string(rawBody)).To(Equal(i.expectedBody))
+	}
+	if i.responseCallback != nil {
+		i.responseCallback(rawBody)
 	}
 	if i.expectedFormValues != nil {
 		for key, value := range i.expectedFormValues {
@@ -122,4 +128,8 @@ func (i *MockHttp) For(comment string) *MockHttp {
 
 func (i *MockHttp) Url() string {
 	return i.expectedMethod + " " + i.expectedUrl
+}
+
+func (i *MockHttp) SetResponseCallback(b func(rawbody []byte)) {
+	i.responseCallback = b
 }

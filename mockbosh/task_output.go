@@ -10,8 +10,18 @@ import (
 	"github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 )
 
+type VMsOutput struct {
+	IPs     []string
+	JobName string `json:"job_name"`
+}
+
 type taskOutputMock struct {
 	*mockhttp.MockHttp
+}
+
+func TaskEvent(taskId int) *taskOutputMock {
+	mock := &taskOutputMock{MockHttp: mockhttp.NewMockedHttpRequest("GET", fmt.Sprintf("/tasks/%d/output?type=event", taskId))}
+	return mock
 }
 
 func TaskOutput(taskId int) *taskOutputMock {

@@ -6,6 +6,13 @@ import (
 	"github.com/pivotal-cf-experimental/cf-webmock/mockhttp"
 )
 
+const (
+	TaskQueued     = "queued"
+	TaskProcessing = "processing"
+	TaskDone       = "done"
+	TaskError      = "error"
+)
+
 type taskMock struct {
 	*mockhttp.MockHttp
 	taskID int
