@@ -13,6 +13,7 @@ import (
 type VMsOutput struct {
 	IPs     []string
 	JobName string `json:"job_name"`
+	JobID   string `json:"id"`
 }
 
 type taskOutputMock struct {
