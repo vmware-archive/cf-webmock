@@ -11,7 +11,6 @@ import (
 	"sync"
 
 	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 type Server struct {
@@ -39,12 +38,6 @@ func (d *Server) ExpectedAuthorizationHeader(header string) {
 }
 func (d *Server) ExpectedBasicAuth(username, password string) {
 	d.ExpectedAuthorizationHeader(basicAuth(username, password))
-}
-
-func (d *Server) verifyCommonServerExpectations(r *http.Request) {
-	if d.expectedAuthorizationHeader != "" {
-		Expect(r.Header.Get("Authorization")).To(Equal(d.expectedAuthorizationHeader))
-	}
 }
 
 func (d *Server) ServeHTTP(writer http.ResponseWriter, req *http.Request) {

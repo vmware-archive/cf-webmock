@@ -25,6 +25,8 @@ type MockHttp struct {
 	responseBody          string
 
 	responseCallback func(rawbody []byte)
+
+	authenticated bool
 }
 
 func (i *MockHttp) Fails(message string) *MockHttp {
@@ -61,6 +63,11 @@ func (i *MockHttp) RespondsWith(body string) *MockHttp {
 	i.responseBody = body
 	return i
 }
+
+func (i *MockHttp) SkipAuthentication() *MockHttp {
+	i.authenticated = false
+	return i
+}
 func (i *MockHttp) RespondsEmpty() *MockHttp {
 	i.responseBody = ""
 	i.responseStatus = http.StatusNoContent
@@ -83,17 +90,24 @@ func (i *MockHttp) WithAuthorizationHeader(auth string) *MockHttp {
 }
 
 func NewMockedHttpRequest(method, url string) *MockHttp {
-	return &MockHttp{expectedMethod: method, expectedUrl: url}
+	return &MockHttp{expectedMethod: method, expectedUrl: url, authenticated: true}
 }
 
 func (i *MockHttp) Verify(req *http.Request, d *Server) {
-	d.verifyCommonServerExpectations(req)
+	Expect(req.Method+" "+req.URL.String()).To(Equal(i.expectedMethod+" "+i.expectedUrl), fmt.Sprintf("Received:\n\t%s\nCompleted mocks:\n%s\nPending mocks:\n%s\n", req.Method+" "+req.URL.String(), strings.Join(d.completedMocks(), "\n"), strings.Join(d.pendingMocks(), "\n")))
+	if i.authenticated {
+		if d.expectedAuthorizationHeader != "" {
+			Expect(req.Header.Get("Authorization")).To(Equal(d.expectedAuthorizationHeader))
+		}
+		if i.expectedAuthorizationHeader != "" {
+			Expect(req.Header.Get("Authorization")).To(Equal(i.expectedAuthorizationHeader))
+		}
+	}
+
 	if i.expectedContentType != "" {
 		Expect(req.Header.Get("Content-Type")).To(Equal(i.expectedContentType))
 	}
-	if i.expectedAuthorizationHeader != "" {
-		Expect(req.Header.Get("Authorization")).To(Equal(i.expectedAuthorizationHeader))
-	}
+
 	rawBody, err := ioutil.ReadAll(req.Body)
 	Expect(err).NotTo(HaveOccurred())
 
