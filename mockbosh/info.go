@@ -22,6 +22,6 @@ func (m *infoMock) WithAuthTypeBasic() *mockhttp.MockHttp {
 
 func (m *infoMock) WithAuthTypeUAA(url string) *mockhttp.MockHttp {
 	return m.RespondsWithJson(map[string]interface{}{"user_authentication": map[string]interface{}{
-		"type": "basic", "options": map[string]string{"url": url},
+		"type": "uaa", "options": map[string]string{"url": url},
 	}})
 }

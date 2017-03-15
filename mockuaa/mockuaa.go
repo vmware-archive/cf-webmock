@@ -114,7 +114,7 @@ func writeStatusAndResponse(status int, response map[string]interface{}, writer 
 func validateRequest(req *http.Request, grantType string) {
 	Expect(req.Method).To(Equal(http.MethodPost))
 	Expect(req.URL.Path).To(Equal("/oauth/token"))
-	Expect(req.PostFormValue("grant_type")).To(Equal(grantType))
+	Expect(req.URL.Query().Get("grant_type")).To(Equal(grantType))
 }
 
 func handleMalformedResponse(validitySecondsToReturn int) (int, map[string]interface{}) {
