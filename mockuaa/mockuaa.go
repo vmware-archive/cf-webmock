@@ -45,7 +45,7 @@ func (s ClientCredentialsServer) ExpectedAuthorizationHeader() string {
 }
 
 func (s *ClientCredentialsServer) ServeHTTP(writer http.ResponseWriter, req *http.Request) {
-	validateRequest(req, "client_credentials")
+	validateRequest(req, "")
 
 	username, password, ok := req.BasicAuth()
 	Expect(ok).To(BeTrue())
