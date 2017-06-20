@@ -2,7 +2,8 @@
 
 Mocking library with a generic interface to mock sequential web requests. Provides DSL-ish wrappers for bosh and uaa apis.
 
-###Usage
+
+## Usage
 
 Initialize mock server
 ```go
