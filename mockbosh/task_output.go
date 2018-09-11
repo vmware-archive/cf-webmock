@@ -13,7 +13,6 @@ import (
 type VMsOutput struct {
 	IPs     []string
 	JobName string `json:"job_name"`
-	JobID   string
 	Index   *int   `json:"index"`
 	ID      string `json:"id"`
 }
