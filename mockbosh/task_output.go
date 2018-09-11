@@ -14,6 +14,8 @@ type VMsOutput struct {
 	IPs     []string
 	JobName string `json:"job_name"`
 	JobID   string `json:"id"`
+	Index   *int   `json:"index"`
+	ID      string `json:"id"`
 }
 
 type taskOutputMock struct {
