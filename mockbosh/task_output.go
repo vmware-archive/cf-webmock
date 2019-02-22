@@ -11,10 +11,11 @@ import (
 )
 
 type VMsOutput struct {
-	IPs     []string
-	JobName string `json:"job_name"`
-	Index   *int   `json:"index"`
-	ID      string `json:"id"`
+	IPs       []string
+	JobName   string `json:"job_name"`
+	Index     *int   `json:"index"`
+	ID        string `json:"id"`
+	Bootstrap bool   `json:"bootstrap"`
 }
 
 type taskOutputMock struct {
